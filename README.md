@@ -1,1 +1,3 @@
-install ffprobe.exe https://ffbinaries.com/downloads
+# Custom MPV Player Config
+## Binaries
+## Used Scripts
