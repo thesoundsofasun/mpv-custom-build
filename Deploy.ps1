@@ -78,7 +78,7 @@ try {
 # =================================================================================
 Write-Host "[4/6] Applying custom configs, fonts, and scripts to AppData..." -ForegroundColor Yellow
 $appDataDest = "$env:APPDATA\mpv"
-$appDataSource = Join-Path $PSScriptRoot "AppData"
+$appDataSource = Join-Path $PSScriptRoot "config"
 
 if (-not (Test-Path $appDataDest)) { New-Item -Path $appDataDest -ItemType Directory -Force | Out-Null }
 Copy-Item -Path "$appDataSource\*" -Destination $appDataDest -Recurse -Force
