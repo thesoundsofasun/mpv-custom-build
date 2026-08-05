@@ -15,17 +15,13 @@ echo  Removing MPV File Associations ^& Icons
 echo ===================================================
 echo.
 
-:: 2. EXTENSION LIST (Just the extensions, no icon numbers needed)
-set "FORMATS=mp3 wav flac mpc ofr aiff ivf wma ogg mka aac ape wv tta ac3 dts amr ra midi cda opus mpa avi mpg mkv mp4 mov 3gp wmv asf ogm flv ts m2ts mxf rm rmvb dv vob webm pls m3u"
+:: 2. EXTENSION LIST 
+set "FORMATS=aac ac3 cda aiff amr ape dts flac m3u m4p midi mka mp3 mpc ofr ogg opus pls ra tta wav wma wv 3gp asf avi dv flv ivf m2ts mkv mov mp4 mpa mpg mxf ogm rm rmvb ts vob webm wmv"
 
 :: 3. REMOVE FROM REGISTRY
 for %%E in (%FORMATS%) do (
     echo Unregistering .%%E...
-    
-    :: Delete the custom MPV ProgID
     reg delete "HKCR\MPV.%%E" /f >nul 2>&1
-    
-    :: Clear the default association for the extension
     reg delete "HKCR\.%%E" /ve /f >nul 2>&1
 )
 

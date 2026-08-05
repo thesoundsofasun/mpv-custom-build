@@ -23,7 +23,7 @@ echo ===================================================
 echo.
 
 :: 3. EXTENSION AND ICON LIST (Format is EXTENSION:ICON_INDEX)
-set "FORMATS=mp3:25 wav:26 flac:31 mpc:34 ofr:39 aiff:48 ivf:18 wma:0 ogg:0 mka:0 aac:0 ape:0 wv:0 tta:0 ac3:0 dts:0 amr:0 ra:0 midi:0 cda:0 opus:0 mpa:0 avi:0 mpg:0 mkv:0 mp4:0 mov:0 3gp:0 wmv:0 asf:0 ogm:0 flv:0 ts:0 m2ts:0 mxf:0 rm:0 rmvb:0 dv:0 vob:0 webm:0 pls:0 m3u:0"
+set "FORMATS=aac:30 ac3:37 cda:43 aiff:48 amr:40 ape:32 dts:38 flac:31 m3u:44 m4p:1 midi:42 mka:29 mp3:25 mpc:34 ofr:39 ogg:28 opus:46 pls:24 ra:41 tta:36 wav:26 wma:27 wv:33 3gp:7 asf:9 avi:2 dv:17 flv:11 ivf:18 m2ts:13 mkv:4 mov:6 mp4:5 mpa:47 mpg:3 mxf:14 ogm:10 rm:15 rmvb:16 ts:12 vob:23 webm:45 wmv:8"
 
 :: 4. APPLY TO REGISTRY
 for %%A in (%FORMATS%) do (
