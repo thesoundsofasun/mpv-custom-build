@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
-    Master Deployment Script for Custom MPV Audio Build
-    Includes Winget install, dynamic dependency downloads (yt-dlp, ffprobe), and custom configs.
+    Web Deployment Script for MPV Custom Build
+    Installs MPV, downloads dependencies, and pulls configs/icons directly from GitHub.
 #>
 
 # =================================================================================
@@ -17,7 +17,7 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 Write-Host "===============================================" -ForegroundColor Cyan
-Write-Host " Starting MPV Custom Build Deployment" -ForegroundColor Cyan
+Write-Host " Starting MPV Web Deployment (from GitHub)" -ForegroundColor Cyan
 Write-Host "===============================================`n" -ForegroundColor Cyan
 
 # =================================================================================
@@ -59,12 +59,9 @@ try {
     $tempZip = "$env:TEMP\ffprobe_temp.zip"
     $tempExtract = "$env:TEMP\ffprobe_extract"
     
-    # Download and extract the zip
     Invoke-WebRequest -Uri $ffUrl -OutFile $tempZip
     if (Test-Path $tempExtract) { Remove-Item $tempExtract -Recurse -Force }
     Expand-Archive -Path $tempZip -DestinationPath $tempExtract -Force
-    
-    # Move ffprobe.exe to MPV folder and cleanup temp files
     Move-Item -Path "$tempExtract\ffprobe.exe" -Destination "$installDir\ffprobe.exe" -Force
     Remove-Item $tempZip, $tempExtract -Recurse -Force
     Write-Host "         Done! ffprobe.exe extracted and installed." -ForegroundColor Green
@@ -74,38 +71,56 @@ try {
 }
 
 # =================================================================================
-# 5. COPY APPDATA FILES (Configs, Fonts, Scripts)
+# 5. PULL FILES DIRECTLY FROM YOUR GITHUB REPO
 # =================================================================================
-Write-Host "[4/6] Applying custom configs, fonts, and scripts to AppData..." -ForegroundColor Yellow
+Write-Host "[4/6] Downloading custom configs and icons from your GitHub repo..." -ForegroundColor Yellow
+
+$repoZipUrl = "https://github.com/thesoundsofasun/mpv-custom-build/archive/refs/heads/main.zip"
+$repoTempZip = "$env:TEMP\mpv_repo_temp.zip"
+$repoExtract = "$env:TEMP\mpv_repo_extract"
+
+if (Test-Path $repoExtract) { Remove-Item $repoExtract -Recurse -Force }
+Invoke-WebRequest -Uri $repoZipUrl -OutFile $repoTempZip
+Expand-Archive -Path $repoTempZip -DestinationPath $repoExtract -Force
+
+# GitHub extracts repos into a folder named "repoName-branchName"
+$repoRoot = Join-Path $repoExtract "mpv-custom-build-main"
+Write-Host "      -> Repo successfully downloaded and extracted." -ForegroundColor Green
+
+# =================================================================================
+# 6. DISTRIBUTE FILES
+# =================================================================================
+Write-Host "[5/6] Distributing files to AppData and Program Files..." -ForegroundColor Yellow
+
+# Copy the "config" folder to %AppData%\mpv
 $appDataDest = "$env:APPDATA\mpv"
-$appDataSource = Join-Path $PSScriptRoot "config"
+$appDataSource = Join-Path $repoRoot "config"
 
 if (-not (Test-Path $appDataDest)) { New-Item -Path $appDataDest -ItemType Directory -Force | Out-Null }
 Copy-Item -Path "$appDataSource\*" -Destination $appDataDest -Recurse -Force
-Write-Host "      -> Configs, Fonts, and Scripts successfully copied." -ForegroundColor Green
+Write-Host "      -> Configs, Fonts, and Scripts applied." -ForegroundColor Green
 
-# =================================================================================
-# 6. COPY INSTALLER FILES (DLL and .bat scripts)
-# =================================================================================
-Write-Host "[5/6] Copying icon library and installer scripts to Program Files..." -ForegroundColor Yellow
-$installerSource = Join-Path $PSScriptRoot "Installer"
-
+# Copy the "installer" folder (.dll and .bat files) to C:\Program Files\mpv\installer
+$installerSource = Join-Path $repoRoot "installer"
 Copy-Item -Path "$installerSource\*" -Destination $installerFolder -Recurse -Force
-Write-Host "      -> mpviconlib.dll and batch scripts successfully copied." -ForegroundColor Green
+Write-Host "      -> mpviconlib.dll and installer scripts applied." -ForegroundColor Green
 
 # =================================================================================
-# 7. AUTORUN THE CUSTOM INSTALL BATCH SCRIPT
+# 7. AUTORUN THE CUSTOM BATCH SCRIPT & CLEANUP
 # =================================================================================
 Write-Host "[6/6] Executing custom mpv-install.bat..." -ForegroundColor Yellow
 $batScriptPath = Join-Path $installerFolder "mpv-install.bat"
 
 if (Test-Path $batScriptPath) {
-    # Run the batch script and wait for it to finish
+    # Run the batch script to map the registry icons
     Start-Process -FilePath $batScriptPath -Wait -NoNewWindow
     Write-Host "      -> File associations and icons applied successfully." -ForegroundColor Green
 } else {
-    Write-Host "      -> ERROR: mpv-install.bat not found in the installer folder." -ForegroundColor Red
+    Write-Host "      -> ERROR: mpv-install.bat not found." -ForegroundColor Red
 }
+
+# Cleanup the downloaded GitHub Zip to keep the PC clean
+Remove-Item $repoTempZip, $repoExtract -Recurse -Force
 
 Write-Host "`n===============================================" -ForegroundColor Cyan
 Write-Host " MPV Setup is Complete! Enjoy your music." -ForegroundColor Cyan
