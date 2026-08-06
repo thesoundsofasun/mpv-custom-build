@@ -8,7 +8,7 @@
 - YouTube video playback
 
 ### Visual:
-- Custom font
+- Ableton Sans font
 - Icons for every supported codec format
 - Removed MPV logo from fresh MPV window
 - Taskbar buttons
@@ -21,9 +21,14 @@
 ### Scripts:
 - Autoload script https://github.com/mpv-player/mpv/blob/master/TOOLS/lua/autoload.lua
 - Autoloop script https://github.com/zc62/mpv-scripts/blob/master/autoloop.lua
+- Taskbar buttons https://github.com/qwerty12/mpv-taskbar-buttons/
 
-### Binaries
-- Icons library https://github.com/yjlin0224/MPC-HC_KLite-IconLibrary/tree/main/64bit
-- MIDI Playback https://github.com/FluidSynth/fluidsynth/releases?page=2#release-v2.3.5
+### Binaries:
+- Icons library (K-Lite Codec Pack (Flatro)) https://github.com/yjlin0224/MPC-HC_KLite-IconLibrary/tree/main/64bit
+- MIDI Playback (fluidsynth) https://github.com/FluidSynth/fluidsynth/releases?page=2#release-v2.3.5
   - Soundfont https://github.com/craffel/pretty-midi/blob/main/pretty_midi/TimGM6mb.sf2
-- For YT playback (yt-dlp) https://github.com/yt-dlp/yt-dlp/releases  
+- YT playback (yt-dlp.exe) https://github.com/yt-dlp/yt-dlp/releases  
+- Metadata sorting by track number (ffprobe.exe)
+
+##Installation
+For automatic installation use the link below:
