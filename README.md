@@ -36,9 +36,29 @@
 irm https://raw.githubusercontent.com/thesoundsofasun/mpv-custom-build/refs/heads/main/Deploy.ps1 | iex
 ```
 
-### Manual installation
+### Manual installation:
 - Install MPV using WinGet:
 ```powershell
 winget install -e --id shinchrio.mpv
 ```
-- Set up folders for scripts in "%appdata%\mpv" (C:\Users\"USERNAME"\AppData\Roaming\mpv) alrernatively its possible to create a "portable_config" folder in "C:\Program Files\MPV Player" directory
+- Set up folders for scripts in "%appdata%\mpv" (C:\Users\"USERNAME"\AppData\Roaming\mpv) alternatively its possible to create a "portable_config" folder in "C:\Program Files\MPV Player" directory
+  - create "scripts" and "fonts" folders
+  - download "config" folder from the source "https://github.com/thesoundsofasun/mpv-custom-build/tree/main/config" and drop all of the files into your preferred config directory (%appdata%\mpv)
+
+- Download necessary binaries:
+  - Download FluidSynth release from https://github.com/FluidSynth/fluidsynth/releases?page=2#release-v2.3.5
+   - Create "midi-synth" folder in "C:\Program Files\MPV Player" directory
+   - Unpack the archive and drop all of the binaries from the bin folder in newly created "midi-synth" folder
+   - Download .sf2 soundfont this for example "https://github.com/craffel/pretty-midi/blob/main/pretty_midi/TimGM6mb.sf2"
+   - Drop a soundfont file into "midi-synth" folder and rename it to "soundfont.sf2"
+  - Download ytdlp.exe and drop it in "C:\Program Files\MPV Player" directory (To support YT video playback)
+  - Download ffprobe.exe and drop it in "C:\Program Files\MPV Player" directory (To support metadata)
+
+- Install custom icons for each format:
+  - Download "installer" folder from the source "https://github.com/thesoundsofasun/mpv-custom-build/tree/main/installer"
+  - Replace original files in "C:\Program Files\MPV Player\installer" with the files downloaded from the source
+  - Run "mpv-install.bat" script to assign modern icons to each media file type
+  - Make MPV Player a default app in Windows App Settings
+
+- Finish  
+  
