@@ -13,7 +13,7 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     exit
 }
 
-# Force TLS 1.2 for web requests (Required for GitHub API downloads)
+# Force TLS 1.2 for web requests
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 Write-Host "===============================================" -ForegroundColor Cyan
@@ -28,15 +28,34 @@ $wingetArgs = "install --id shinchiro.mpv --exact --silent --accept-package-agre
 Start-Process winget -ArgumentList $wingetArgs -Wait -NoNewWindow
 
 # =================================================================================
-# 3. LOCATE THE INSTALLATION DIRECTORY
+# 3. DYNAMICALLY LOCATE MPV.EXE
 # =================================================================================
-$installDir = "C:\Program Files\mpv"
-if (Test-Path "C:\Program Files\MPV Player") { $installDir = "C:\Program Files\MPV Player" }
+Write-Host "[2/6] Locating MPV installation..." -ForegroundColor Yellow
+
+$installDir = $null
+$possiblePaths = @(
+    "C:\Program Files\mpv\mpv.exe",
+    "C:\Program Files\MPV Player\mpv.exe",
+    "C:\Program Files\MPV Player\mpv\mpv.exe",
+    "$env:LOCALAPPDATA\Programs\mpv\mpv.exe",
+    "$env:LOCALAPPDATA\mpv\mpv.exe"
+)
+
+foreach ($path in $possiblePaths) {
+    if (Test-Path $path) {
+        $installDir = Split-Path $path
+        break
+    }
+}
+
+if (-not $installDir) {
+    $installDir = "C:\Program Files\mpv" # Safe fallback
+}
+
+Write-Host "      -> MPV located at: $installDir" -ForegroundColor Green
 
 $installerFolder = Join-Path $installDir "installer"
 if (-not (Test-Path $installerFolder)) { New-Item -Path $installerFolder -ItemType Directory -Force | Out-Null }
-
-Write-Host "[2/6] MPV located at: $installDir" -ForegroundColor Green
 
 # =================================================================================
 # 4. DOWNLOAD DEPENDENCIES (yt-dlp.exe & ffprobe.exe)
@@ -83,7 +102,6 @@ if (Test-Path $repoExtract) { Remove-Item $repoExtract -Recurse -Force }
 Invoke-WebRequest -Uri $repoZipUrl -OutFile $repoTempZip
 Expand-Archive -Path $repoTempZip -DestinationPath $repoExtract -Force
 
-# GitHub extracts repos into a folder named "repoName-branchName"
 $repoRoot = Join-Path $repoExtract "mpv-custom-build-main"
 Write-Host "      -> Repo successfully downloaded and extracted." -ForegroundColor Green
 
@@ -100,7 +118,7 @@ if (-not (Test-Path $appDataDest)) { New-Item -Path $appDataDest -ItemType Direc
 Copy-Item -Path "$appDataSource\*" -Destination $appDataDest -Recurse -Force
 Write-Host "      -> Configs, Fonts, and Scripts applied." -ForegroundColor Green
 
-# Copy the "installer" folder (.dll and .bat files) to C:\Program Files\mpv\installer
+# Copy the "installer" folder (.dll and .bat files) to MPV's installer folder
 $installerSource = Join-Path $repoRoot "installer"
 Copy-Item -Path "$installerSource\*" -Destination $installerFolder -Recurse -Force
 Write-Host "      -> mpviconlib.dll and installer scripts applied." -ForegroundColor Green
@@ -112,7 +130,6 @@ Write-Host "[6/6] Executing custom mpv-install.bat..." -ForegroundColor Yellow
 $batScriptPath = Join-Path $installerFolder "mpv-install.bat"
 
 if (Test-Path $batScriptPath) {
-    # Run the batch script to map the registry icons
     Start-Process -FilePath $batScriptPath -Wait -NoNewWindow
     Write-Host "      -> File associations and icons applied successfully." -ForegroundColor Green
 } else {
