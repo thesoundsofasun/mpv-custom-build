@@ -32,5 +32,5 @@
 
 ##Installation
 For automatic installation (Windows only) use this link in Powershell:
-'''irm https://raw.githubusercontent.com/thesoundsofasun/mpv-custom-build/refs/heads/main/Deploy.ps1 | iex'''
-<clipboard-copy value="Text to be copied">Click here to copy text</clipboard-copy>
+irm https://raw.githubusercontent.com/thesoundsofasun/mpv-custom-build/refs/heads/main/Deploy.ps1 | iex
+<clipboard-copy value="irm https://raw.githubusercontent.com/thesoundsofasun/mpv-custom-build/refs/heads/main/Deploy.ps1 | iex">Click here to copy text</clipboard-copy>
