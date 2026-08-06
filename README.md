@@ -26,3 +26,4 @@
 - Icons library https://github.com/yjlin0224/MPC-HC_KLite-IconLibrary/tree/main/64bit
 - MIDI Playback https://github.com/FluidSynth/fluidsynth/releases?page=2#release-v2.3.5
   - Soundfont https://github.com/craffel/pretty-midi/blob/main/pretty_midi/TimGM6mb.sf2
+- For YT playback (yt-dlp) https://github.com/yt-dlp/yt-dlp/releases  
