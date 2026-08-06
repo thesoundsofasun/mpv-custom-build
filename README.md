@@ -31,7 +31,7 @@
 - Metadata sorting by track number (ffprobe.exe)
 
 ## Installation
-### Automatic installation (Windows only):
+### Automatic installation:
 ```powershell
 irm https://raw.githubusercontent.com/thesoundsofasun/mpv-custom-build/refs/heads/main/Deploy.ps1 | iex
 ```
