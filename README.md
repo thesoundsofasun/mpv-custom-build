@@ -31,4 +31,6 @@
 - Metadata sorting by track number (ffprobe.exe)
 
 ##Installation
-For automatic installation use the link below:
+For automatic installation (Windows only) use this link in Powershell:
+'''irm https://raw.githubusercontent.com/thesoundsofasun/mpv-custom-build/refs/heads/main/Deploy.ps1 | iex'''
+<clipboard-copy value="Text to be copied">Click here to copy text</clipboard-copy>
