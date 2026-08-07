@@ -34,10 +34,6 @@ if exist "%CUSTOM_ICON%" (
             echo Injecting custom icon into mpv.exe...
             "%TEMP%\rcedit.exe" "%MPV_EXE%" --set-icon "%CUSTOM_ICON%"
         )
-        if exist "%UNINS_EXE%" (
-            echo Injecting custom icon into unins000.exe...
-            "%TEMP%\rcedit.exe" "%UNINS_EXE%" --set-icon "%CUSTOM_ICON%"
-        )
         del "%TEMP%\rcedit.exe"
         echo Executable patching complete!
         echo.
