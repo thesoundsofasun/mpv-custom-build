@@ -16,6 +16,43 @@ set "MPV_DIR=%~dp0.."
 for %%I in ("%MPV_DIR%") do set "MPV_DIR=%%~fI"
 set "MPV_EXE=%MPV_DIR%\mpv.exe"
 
+:: ======================================================================
+:: --- ADDED SECTION: PATCH MPV.EXE AND UNINS000.EXE WITH CUSTOM ICON ---
+:: ======================================================================
+set "CUSTOM_ICON=%~dp0mpv-icon.ico"
+set "UNINS_EXE=%MPV_DIR%\unins000.exe"
+
+if exist "%CUSTOM_ICON%" (
+    echo ===================================================
+    echo  Patching Executables with Custom Icon...
+    echo ===================================================
+    echo Downloading rcedit to %TEMP%\rcedit.exe...
+    powershell -Command "Invoke-WebRequest -Uri 'https://github.com/electron/rcedit/releases/download/v2.0.0/rcedit-x64.exe' -OutFile '%TEMP%\rcedit.exe'"
+    
+    if exist "%TEMP%\rcedit.exe" (
+        if exist "%MPV_EXE%" (
+            echo Injecting custom icon into mpv.exe...
+            "%TEMP%\rcedit.exe" "%MPV_EXE%" --set-icon "%CUSTOM_ICON%"
+        )
+        if exist "%UNINS_EXE%" (
+            echo Injecting custom icon into unins000.exe...
+            "%TEMP%\rcedit.exe" "%UNINS_EXE%" --set-icon "%CUSTOM_ICON%"
+        )
+        del "%TEMP%\rcedit.exe"
+        echo Executable patching complete!
+        echo.
+    ) else (
+        echo Error: rcedit failed to download.
+        echo.
+    )
+) else (
+    echo mpv-icon.ico not found, skipping executable patch...
+    echo.
+)
+:: ======================================================================
+:: --- END OF ADDED SECTION ---
+:: ======================================================================
+
 echo ===================================================
 echo  Installing MPV Custom File Associations ^& Icons
 echo ===================================================
