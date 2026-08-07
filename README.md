@@ -1,4 +1,6 @@
 # Custom MPV Player Config
+<img width="256" height="256" alt="mpv-icon_6" src="https://github.com/user-attachments/assets/f1a6f0df-792a-4029-96a7-2291c153b37c" />
+
 ## Added features
 ### Functions:
 - Auto loads playlist from any folder
