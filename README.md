@@ -39,7 +39,7 @@ irm https://raw.githubusercontent.com/thesoundsofasun/mpv-custom-build/refs/head
 ### Manual installation:
 - Install MPV using WinGet:
 ```powershell
-winget install -e --id shinchrio.mpv
+winget install -e --id shinchiro.mpv
 ```
 - Set up folders for scripts in "%appdata%\mpv" (C:\Users\"USERNAME"\AppData\Roaming\mpv) alternatively its possible to create a "portable_config" folder in "C:\Program Files\MPV Player" directory
   - create "scripts" and "fonts" folders
