@@ -12,6 +12,7 @@
 
 ### Visual:
 - Ableton Sans font
+- New MPV Player icon.
 - Icons for every supported codec format
 - Removed MPV logo from fresh MPV window
 - Taskbar buttons
