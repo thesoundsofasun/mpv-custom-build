@@ -49,7 +49,7 @@
 - MIDI Playback (fluidsynth) https://github.com/FluidSynth/fluidsynth/releases?page=2#release-v2.3.5
   - Soundfont https://github.com/craffel/pretty-midi/blob/main/pretty_midi/TimGM6mb.sf2
 - YT playback (yt-dlp.exe) https://github.com/yt-dlp/yt-dlp/releases  
-- Metadata sorting by track number (ffprobe.exe)
+- Metadata sorting by track number (ffprobe.exe) https://ffbinaries.com/downloads
 
 ## Installation
 ### Automatic installation:
