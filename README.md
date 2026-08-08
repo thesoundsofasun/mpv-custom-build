@@ -1,5 +1,19 @@
-# Custom MPV Player Config
-<img width="128" height="128" alt="mpv-icon_5" src="https://github.com/user-attachments/assets/376f0cfc-96d0-49ef-aa10-edf59df7644d" />
+<img width="300" height="300" alt="mpv-icon" src="https://github.com/user-attachments/assets/b028aed4-6c75-47b4-9b76-58021a20b0b0" /># Custom MPV Player Config
+![<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="Layer-1" serif:id="Layer 1">
+        <path d="M48,7.059L48,40.941C48,44.837 44.837,48 40.941,48L7.059,48C3.163,48 0,44.837 0,40.941L0,7.059C0,3.163 3.163,0 7.059,0L40.941,0C44.837,0 48,3.163 48,7.059Z" style="fill:url(#_Linear1);"/>
+        <g id="g835" transform="matrix(1.264273,0,0,1.264273,-6.310706,-7.044258)">
+            <path id="path827" d="M17.764,15.57L17.764,35.064L25.867,30.191L33.971,25.317L25.867,20.444L17.764,15.57Z" style="fill:white;stroke:white;stroke-width:0.79px;"/>
+        </g>
+    </g>
+    <defs>
+        <linearGradient id="_Linear1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0,48,-48,0,24,0)"><stop offset="0" style="stop-color:rgb(42,128,185);stop-opacity:1"/><stop offset="0.5" style="stop-color:rgb(39,120,174);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(29,87,126);stop-opacity:1"/></linearGradient>
+    </defs>
+</svg>
+Uploading mpv-icon.svg…]()
+
 
 
 ## Added features
