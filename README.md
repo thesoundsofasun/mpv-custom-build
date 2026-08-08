@@ -1,7 +1,7 @@
 # Custom MPV Player Config
 
 
-<img width="300" height="300" alt="mpv-icon" src="https://github.com/user-attachments/assets/3a20d57a-d3d4-4ab8-a318-5fcdc5782f76" />
+<img width="150" height="150" alt="mpv-icon" src="https://github.com/user-attachments/assets/3a20d57a-d3d4-4ab8-a318-5fcdc5782f76" />
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;">
