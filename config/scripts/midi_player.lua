@@ -15,6 +15,32 @@ local function get_file_size(path)
     return size
 end
 
+-- Dynamically find the midi-synth folder regardless of where MPV is installed
+local function get_midi_synth_dir()
+    local paths = {
+        "C:\\Program Files\\Utilities\\mpv\\midi-synth",
+        "C:\\Program Files\\Utilities\\MPV Player\\midi-synth",
+        "C:\\Program Files\\MPV Player\\midi-synth",
+        "C:\\Program Files\\mpv\\midi-synth"
+    }
+    
+    -- Dynamically check relative to the MPV config folder (for pure portable setups)
+    local config_dir = mp.command_native({"expand-path", "~~/"})
+    if config_dir then
+        config_dir = config_dir:gsub("/", "\\")
+        table.insert(paths, config_dir .. "\\..\\midi-synth")
+        table.insert(paths, config_dir .. "\\midi-synth")
+    end
+
+    for _, dir in ipairs(paths) do
+        local test_exe = dir .. "\\fluidsynth.exe"
+        if file_exists(test_exe) then
+            return dir
+        end
+    end
+    return nil
+end
+
 mp.add_hook("on_load", 50, function()
     local path = mp.get_property("stream-open-filename", "")
     if not path then return end
@@ -24,16 +50,19 @@ mp.add_hook("on_load", 50, function()
     
     if ext == "mid" or ext == "midi" then
         
-        local install_dir = "C:\\Program Files\\mpv"
-        if not file_exists(install_dir .. "\\mpv.exe") then
-            install_dir = "C:\\Program Files\\MPV Player"
+        local synth_dir = get_midi_synth_dir()
+        
+        if not synth_dir then
+            mp.osd_message("Error: midi-synth folder not found anywhere!", 4)
+            msg.error("Could not locate fluidsynth.exe in any known MPV folders.")
+            return
         end
         
-        local fluidsynth = install_dir .. "\\midi-synth\\fluidsynth.exe"
-        local soundfont = install_dir .. "\\midi-synth\\soundfont.sf2"
+        local fluidsynth = synth_dir .. "\\fluidsynth.exe"
+        local soundfont = synth_dir .. "\\soundfont.sf2"
         
-        if not file_exists(fluidsynth) or not file_exists(soundfont) then
-            mp.osd_message("Error: FluidSynth or SoundFont missing!", 4)
+        if not file_exists(soundfont) then
+            mp.osd_message("Error: soundfont.sf2 is missing from midi-synth!", 4)
             return
         end
         
