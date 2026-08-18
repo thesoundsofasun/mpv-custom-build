@@ -99,18 +99,18 @@ local user_opts = {
     bottom_hover = true,             -- show OSC only when hovering at the bottom
     bottom_hover_zone = 175,         -- height of hover zone for bottom_hover (in pixels)
     osc_on_seek = false,             -- show OSC when seeking
-    osc_keep_with_cursor = false,    -- keep OSC visible if mouse cursor is within OSC boundaries
+    osc_keep_with_cursor = true,    -- keep OSC visible if mouse cursor is within OSC boundaries
     mouse_seek_pause = true,         -- pause video while seeking with mouse move (on button hold)
 
     vid_scale = false,               -- scale osc with the video
-    scale_windowed = 1.0,            -- osc scale factor when windowed
+    scale_windowed = 0.75,            -- osc scale factor when windowed
     scale_fullscreen = 1.0,          -- osc scale factor when fullscreen
-    scale_forced_window = 1.0,       -- osc scale factor when forced (no video, for example music files)
+    scale_forced_window = 0.75,       -- osc scale factor when forced (no video, for example music files)
 
     -- Time, title and description display
     show_title = true,             -- show title in the OSC (above seekbar)
     title = "${media-title}",      -- title above seekbar format: "${media-title}" or "${filename}"
-    title_font_size = 28,          -- font size of the title text (above seekbar)
+    title_font_size = 25,          -- font size of the title text (above seekbar)
     dynamic_title = true,          -- change title if {media-title} and {filename} differ (eg: when playing URLs or audio)
 
     show_chapter_title = true,     -- show chapter title alongside timestamp (below seekbar)
@@ -137,7 +137,7 @@ local user_opts = {
     date_format = "%Y-%m-%d",      -- how dates should be formatted, when read from metadata (uses standard lua date formatting)
 
     -- Title bar settings
-    window_title = true,                      -- show window title in borderless/fullscreen mode
+    window_title = false,                      -- show window title in borderless/fullscreen mode
     window_controls = true,                   -- show window controls (close, minimize, maximize) in borderless/fullscreen
     window_controls_title = "${media-title}", -- same as title but for window_controls
 
