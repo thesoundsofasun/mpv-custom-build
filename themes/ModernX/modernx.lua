@@ -81,7 +81,7 @@ local user_opts = {
     language = "en",            -- en:English - .json translations need implementing
     font = "mpv-osd-symbols",   -- font for the OSC (default: mpv-osd-symbols or the one set in mpv.conf)
     layout_option = "original", -- use the original/reduced layout
-    idle_screen = true,         -- show mpv logo when idle
+    idle_screen = false,         -- show mpv logo when idle
     key_bindings = true,        -- register additional key bindings, such as chapter scrubbing, pinning the window
     window_top_bar = "auto",    -- show OSC window top bar: "auto", "yes", or "no" (borderless/fullscreen)
     show_windowed = true,       -- show OSC when windowed
@@ -92,12 +92,12 @@ local user_opts = {
     visibility = "auto",        -- only used at init to set visibility_mode(...)
 
     -- OSC behaviour and scaling
-    hide_timeout = 1500,             -- time (in ms) before OSC hides if no mouse movement
+    hide_timeout = 2000,             -- time (in ms) before OSC hides if no mouse movement
     seek_resets_hide_timeout = true, -- if seeking should reset the hide_timeout
-    fade_duration = 150,             -- fade-out duration (in ms), set to 0 for no fade
+    fade_duration = 500,             -- fade-out duration (in ms), set to 0 for no fade
     min_mouse_move = 0,              -- minimum mouse movement (in pixels) required to show OSC
     bottom_hover = true,             -- show OSC only when hovering at the bottom
-    bottom_hover_zone = 175,         -- height of hover zone for bottom_hover (in pixels)
+    bottom_hover_zone = 125,         -- height of hover zone for bottom_hover (in pixels)
     osc_on_seek = false,             -- show OSC when seeking
     osc_keep_with_cursor = true,    -- keep OSC visible if mouse cursor is within OSC boundaries
     mouse_seek_pause = true,         -- pause video while seeking with mouse move (on button hold)
@@ -110,7 +110,7 @@ local user_opts = {
     -- Time, title and description display
     show_title = true,             -- show title in the OSC (above seekbar)
     title = "${media-title}",      -- title above seekbar format: "${media-title}" or "${filename}"
-    title_font_size = 25,          -- font size of the title text (above seekbar)
+    title_font_size = 28,          -- font size of the title text (above seekbar)
     dynamic_title = true,          -- change title if {media-title} and {filename} differ (eg: when playing URLs or audio)
 
     show_chapter_title = true,     -- show chapter title alongside timestamp (below seekbar)
@@ -147,7 +147,7 @@ local user_opts = {
 
     -- Buttons display and functionality
     compact_mode = true,            -- replace the jump buttons with the seek/chapter buttons
-
+           -- replace the jump buttons with the next/previous playlist track buttons
     jump_buttons = true,            -- show the jump backward and forward buttons
     jump_amount = 10,               -- change the jump amount in seconds
     jump_more_amount = 60,          -- change the jump amount in seconds when right-clicking jump buttons and shift-clicking chapter skip buttons
@@ -2995,8 +2995,9 @@ layouts["original"] = function()
     local screenshot_button = user_opts.screenshot_button
 
     if user_opts.compact_mode then
-        user_opts.jump_buttons = false
+        track_nextprev_buttons = true
         jump_buttons = false
+        chapter_skip_buttons = (osc_param.playresx >= 450)
     end
     local offset = jump_buttons and 60 or 0
     local outeroffset = (chapter_skip_buttons and 0 or 100) + (jump_buttons and 0 or 100)
@@ -3290,8 +3291,9 @@ layouts["reduced"] = function()
     local screenshot_button = user_opts.screenshot_button
 
     if user_opts.compact_mode then
-        user_opts.jump_buttons = false
+        track_nextprev_buttons = true
         jump_buttons = false
+        chapter_skip_buttons = (osc_param.playresx >= 450)
     end
     local offset = jump_buttons and 60 or 0
     local outeroffset = (chapter_skip_buttons and 0 or 100) + (jump_buttons and 0 or 100)
@@ -3546,7 +3548,10 @@ local function osc_init()
     local noskipoffset = user_opts.chapter_skip_buttons and 0 or 100
 
     local compact_mode = user_opts.compact_mode
-    if compact_mode then nojumpoffset = 100 end
+    if compact_mode then
+        nojumpoffset = 100
+        noskipoffset = 100
+    end
     local outeroffset = (user_opts.chapter_skip_buttons and 0 or 140) + (user_opts.jump_buttons and 0 or 140)
     if compact_mode then outeroffset = 140 end
 
@@ -3605,7 +3610,7 @@ local function osc_init()
     -- playlist buttons
     -- previous
     ne = new_element('pl_prev', 'button')
-    ne.visible = (osc_param.playresx >= 500 - nojumpoffset - noskipoffset * (nojumpoffset == 0 and 1 or 10))
+    ne.visible = compact_mode or (osc_param.playresx >= 500 - nojumpoffset - noskipoffset * (nojumpoffset == 0 and 1 or 10))
     ne.content = icons.previous
     ne.enabled = (pl_pos > 1) or (loop ~= 'no')
     ne.eventresponder['mbtn_left_up'] =
@@ -3622,7 +3627,7 @@ local function osc_init()
 
     -- next
     ne = new_element('pl_next', 'button')
-    ne.visible = (osc_param.playresx >= 500 - nojumpoffset - noskipoffset * (nojumpoffset == 0 and 1 or 10))
+    ne.visible = compact_mode or (osc_param.playresx >= 500 - nojumpoffset - noskipoffset * (nojumpoffset == 0 and 1 or 10))
     ne.content = icons.next
     ne.enabled = (have_pl and (pl_pos < pl_count)) or (loop ~= 'no')
     ne.eventresponder['mbtn_left_up'] =
