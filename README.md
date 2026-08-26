@@ -21,7 +21,7 @@
 - Auto loads playlist from any folder
 - Auto loops audio that is shorter than 5 sec
 - MIDI playback support
-- Single instance playing
+- Single instance playing (Ctrl+N to open new independent window, videos open in new separate window rather than replacing the main one)
 - YouTube video playback (Windows only*)
 
 ### Visual:
@@ -33,7 +33,7 @@
 
 ### Playlist control:
 - Shuffle tracks in playlist (press S) for continuous shuffle press (Shift + S)
-- Sort tracks by track number metadata (press T)
+- Sort tracks by track number metadata (pressing T plays back a folder in "Album" order)
 
 
 ## Windows installation guide:
