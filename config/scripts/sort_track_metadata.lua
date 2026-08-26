@@ -48,7 +48,12 @@ local function sort_metadata()
         end
     end
     
-    mp.osd_message("Playlist Sorted chronologically by Track Number!")
+    -- ==========================================
+    -- NEW: Jump to the very first track!
+    -- ==========================================
+    mp.set_property("playlist-pos", 0)
+    
+    mp.osd_message("Playlist Sorted chronologically by Track Number!", 3)
 end
 
 -- Binds this to the 't' key
