@@ -29,13 +29,13 @@
 
 ### Visual:
 - Ableton Sans font
-- New MPV Player icon.
-- Icons for every supported codec format
-- Removed MPV logo from fresh MPV window
-- Taskbar buttons
+- New MPV Player icon. (Windows only*)
+- Icons for every supported codec format (Windows only*)
+- Removed MPV logo from new MPV window
+- Taskbar buttons (Windows only*)
 
 ### Playlist control:
-- Shuffle tracks in playlist (press S)
+- Shuffle tracks in playlist (press S) for continuous shuffle press (Shift + S)
 - Sort tracks by track number metadata (press T)
 
 ## Sources being used
@@ -51,7 +51,7 @@
 - YT playback (yt-dlp.exe) https://github.com/yt-dlp/yt-dlp/releases  
 - Metadata sorting by track number (ffprobe.exe) https://ffbinaries.com/downloads
 
-## Installation
+## Windows installation guide:
 ### Automatic installation:
 ```powershell
 irm https://raw.githubusercontent.com/thesoundsofasun/mpv-custom-build/refs/heads/main/Deploy.ps1 | iex
@@ -82,4 +82,32 @@ winget install -e --id shinchiro.mpv
   - Make MPV Player a default app in Windows App Settings
 
 - Finish  
-  
+
+## Linux installation guide:
+- Install MPV Player using preferred package manager:
+Debian based distros
+Arch based distros
+```
+sudo pacman -S mpv
+```
+```
+sudo apt install mpv
+```
+Other distros
+```
+flatpak install flathub io.mpv.Mpv -y
+```
+- Install FluidSynth for MIDI support
+Arch based distros
+```
+sudo pacman -S fluidsynth
+```
+Debian based distros
+```
+sudo apt install fluidsynth
+```
+Fedora based distros
+```
+sudo dnf install fluidsynth
+```
+
