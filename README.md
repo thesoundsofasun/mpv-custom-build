@@ -41,7 +41,7 @@
 ```powershell
 winget install -e --id shinchiro.mpv
 ```
-- [DOWNLOAD](https://github.com/thesoundsofasun/mpv-custom-build/releases/download/latest/mpv-player-config-linux.zip) config files for Windows
+- [DOWNLOAD](https://github.com/thesoundsofasun/mpv-custom-build/releases/download/latest/mpv-player-config-windows.zip) config files for Windows
 
 - Extract archive and drop files and folders from the "config" folder into C:\Users\"USERNAME"\AppData\Roaming\mpv directory (or in portable_config folder for portable installations)
 
